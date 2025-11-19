@@ -49,7 +49,7 @@ Configs: {
 
 		AlwaysShowLabel: {
 			Label: Always Show Label
-			Tooltip: Always show the "{$Mods.BaseSellPriceTooltip.Labels.BaseSellPrice}" label, even when the vanilla price tooltip isn't shown.
+			Tooltip: Always show the "{$Mods.BaseSellPriceTooltip.Labels.BaseSellPrice}" prefix, even when the vanilla price tooltip isn't shown.
 		}
 
 		ShortFormat: {
