@@ -1,0 +1,100 @@
+Labels: {
+	BaseSellPrice: Base sell price:
+	BaseBuyPrice: Base buy price:
+}
+
+Keybinds.ShowHideTooltip.DisplayName: Show/Hide Tooltips (SEE CONFIG)
+
+Configs: {
+	MainConfig: {
+		DisplayName: Config
+		ShowHeader: Price visibility
+		MustSetKeybind:
+			'''
+			To use "Press to Toggle Tooltips" or "Hold to Show Tooltips", you
+			must set the Show/Hide Tooltips keybind in Controls settings.
+			'''
+
+		ShowOutsideNPCShops: {
+			Label: Outside NPC Shops
+			Tooltip:
+				'''
+				Controls the visibility of an item's base sell price when not in an NPC shop.
+
+				{$Mods.BaseSellPriceTooltip.Configs.MainConfig.MustSetKeybind}
+				'''
+		}
+
+		ShowInNPCShops: {
+			Label: In NPC Shops
+			Tooltip:
+				'''
+				Controls the visibility of an item's base sell price when in an NPC shop.
+
+				{$Mods.BaseSellPriceTooltip.Configs.MainConfig.MustSetKeybind}
+				'''
+		}
+
+		ShowBaseBuyPrice: {
+			Label: Buy Prices
+			Tooltip:
+				'''
+				Controls the visibility of an item's base buy price when it's being sold by an NPC.
+
+				{$Mods.BaseSellPriceTooltip.Configs.MainConfig.MustSetKeybind}
+				'''
+		}
+
+		FormatHeader: Price formatting
+
+		AlwaysShowLabel: {
+			Label: Always Show Label
+			Tooltip: Always show the "{$Mods.BaseSellPriceTooltip.Labels.BaseSellPrice}" label, even when the vanilla price tooltip isn't shown.
+		}
+
+		ShortFormat: {
+			Label: Use Short Format
+			Tooltip:
+				'''
+				Use a more compact format to display the base sell/buy prices.
+
+				Examples:
+
+				Vanilla format: [c/DCDCC6:12 platinum 34 gold 56 silver 78 copper]
+				Short format: [i:74][c/DCDCC6:12] [i:73][c/E0C95C:34] [i:72][c/B5C0C1:56] [i:71][c/F68A60:78]
+
+				Vanilla format: [c/E0C95C:9 gold 87 copper]
+				Short format: [i:73][c/E0C95C:9] [i:71][c/F68A60:87]
+				'''
+		}
+
+		ShortFormatVanilla: {
+			Label: Use Short Format for Vanilla Tooltip
+			Tooltip: Use the Short Format for the vanilla price tooltip as well.
+		}
+	}
+
+	ShowCondition: {
+		AlwaysShow: {
+			Label: Always Show Tooltips
+			Tooltip: ""
+		}
+
+		PressToToggle: {
+			Label: Press to Toggle Tooltips
+			Tooltip: ""
+		}
+
+		HoldToShow: {
+			Label: Hold to Show Tooltips
+			Tooltip: ""
+		}
+
+		NeverShow: {
+			Label: Never Show Tooltips
+			Tooltip: ""
+		}
+
+		Tooltip: ""
+	}
+}

@@ -1,0 +1,5 @@
+Adds a helpful tooltip showing the base sell price of each item. This mod can also show base buy prices for items sold by NPCs.
+
+You can fully customise when this tooltip is shown (in normal inventory/in NPC shop, always show/toggle with button, etc.)
+
+The mod also includes an alternative shorter format for displaying the prices, as shown in the screenshots. You can choose whether to enable this in the mod settings.

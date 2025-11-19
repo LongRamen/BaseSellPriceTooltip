@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseSellPriceTooltip", "BaseSellPriceTooltip.csproj", "{2E778B35-9763-B64D-D536-F583E28400C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E778B35-9763-B64D-D536-F583E28400C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E778B35-9763-B64D-D536-F583E28400C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E778B35-9763-B64D-D536-F583E28400C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E778B35-9763-B64D-D536-F583E28400C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C9EAB43-01DF-47CF-B1D6-D4AE433D5384}
+	EndGlobalSection
+EndGlobal
