@@ -5,3 +5,5 @@ You can fully customise when this tooltip is shown (in normal inventory/in NPC s
 The mod also includes an alternative shorter format for displaying the prices, as shown in the screenshots. You can choose whether to enable this in the mod settings.
 
 Github: https://github.com/LongRamen/BaseSellPriceTooltip
+
+(If you want to contribute localisation, create a pull request on the above repo or leave a comment on this workshop item.)
