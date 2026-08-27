@@ -72,7 +72,7 @@ public class ItemUpdateTooltips : GlobalItem
 
 		long gold = price / 10000;
 		price -= gold * 10000;
-		
+
 		long silver = price / 100;
 		price -= silver * 100;
 
