@@ -9,15 +9,6 @@ namespace BaseSellPriceTooltip.Common;
 
 public class ItemUpdateTooltips : GlobalItem
 {
-    internal enum PriceLevel
-    {
-        Platinum,
-        Gold,
-        Silver,
-        Copper,
-        NoValue,
-    }
-
     private static readonly string PlatinumTextLocalised = Lang.inter[15].Value;
     private static readonly string GoldTextLocalised = Lang.inter[16].Value;
     private static readonly string SilverTextLocalised = Lang.inter[17].Value;
@@ -107,20 +98,15 @@ public class ItemUpdateTooltips : GlobalItem
         return output.TrimEnd();
     }
 
-    private static bool ConditionSatisfied(MainConfig.ShowCondition condition)
+    private static bool ConditionSatisfied(ShowCondition condition)
     {
-        switch (condition)
+        return condition switch
         {
-            case MainConfig.ShowCondition.HoldToShow:
-                if (!PlayerCheckKeybinds.Held) return false;
-                break;
-            case MainConfig.ShowCondition.PressToToggle:
-                if (!PlayerCheckKeybinds.Toggled) return false;
-                break;
-            case MainConfig.ShowCondition.NeverShow:
-                return false;
-        }
-        return true;
+            ShowCondition.HoldToShow => PlayerCheckKeybinds.Held,
+            ShowCondition.PressToToggle => PlayerCheckKeybinds.Toggled,
+            ShowCondition.NeverShow => false,
+            _ => true,
+        };
     }
 
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

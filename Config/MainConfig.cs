@@ -7,14 +7,6 @@ public class MainConfig : ModConfig
 {
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
-    public enum ShowCondition
-    {
-        AlwaysShow,
-        PressToToggle,
-        HoldToShow,
-        NeverShow
-    }
-
     [Header("$Mods.BaseSellPriceTooltip.Configs.MainConfig.ShowHeader")]
 
     [DefaultValue(ShowCondition.AlwaysShow)]
