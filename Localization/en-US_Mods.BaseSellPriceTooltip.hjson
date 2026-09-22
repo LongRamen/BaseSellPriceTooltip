@@ -61,10 +61,10 @@ Configs: {
 				Examples:
 
 				Vanilla format: [c/DCDCC6:12 platinum 34 gold 56 silver 78 copper]
-				Short format: [i:74][c/DCDCC6:12] [i:73][c/E0C95C:34] [i:72][c/B5C0C1:56] [i:71][c/F68A60:78]
+				Short format: [i:PlatinumCoin][c/DCDCC6:12] [i:GoldCoin][c/E0C95C:34] [i:SilverCoin][c/B5C0C1:56] [i:CopperCoin][c/F68A60:78]
 
 				Vanilla format: [c/E0C95C:9 gold 87 copper]
-				Short format: [i:73][c/E0C95C:9] [i:71][c/F68A60:87]
+				Short format: [i:GoldCoin][c/E0C95C:9] [i:CopperCoin][c/F68A60:87]
 				'''
 		}
 

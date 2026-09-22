@@ -18,11 +18,6 @@ public class ItemUpdateTooltips : GlobalItem
     private static readonly string SellPriceTextLocalised = Lang.tip[49].Value;
     private static readonly string BuyPriceTextLocalised = Lang.tip[50].Value;
 
-    private static readonly string PlatinumItemTag = "[i:74]";
-    private static readonly string GoldItemTag = "[i:73]";
-    private static readonly string SilverItemTag = "[i:72]";
-    private static readonly string CopperItemTag = "[i:71]";
-
     private static string PlatinumColour => GetPulsingColour(220, 220, 198); // DCDCC6
     private static string GoldColour => GetPulsingColour(224, 201, 92); // E0C95C
     private static string SilverColour => GetPulsingColour(181, 192, 193); // B5C0C1
@@ -75,22 +70,22 @@ public class ItemUpdateTooltips : GlobalItem
         if (platinum > 0)
         {
             priceLevel = PriceLevel.Platinum;
-            output += shortFormat ? $"{PlatinumItemTag}[c/{PlatinumColour}:{platinum}] " : $"[c/{PlatinumColour}:{platinum} {PlatinumTextLocalised}] ";
+            output += shortFormat ? $"[i:PlatinumCoin][c/{PlatinumColour}:{platinum}] " : $"[c/{PlatinumColour}:{platinum} {PlatinumTextLocalised}] ";
         }
         if (gold > 0)
         {
             if (priceLevel == PriceLevel.NoValue) priceLevel = PriceLevel.Gold;
-            output += shortFormat ? $"{GoldItemTag}[c/{GoldColour}:{gold}] " : $"[c/{LevelToColour(priceLevel)}:{gold} {GoldTextLocalised}] ";
+            output += shortFormat ? $"[i:GoldCoin][c/{GoldColour}:{gold}] " : $"[c/{LevelToColour(priceLevel)}:{gold} {GoldTextLocalised}] ";
         }
         if (silver > 0)
         {
             if (priceLevel == PriceLevel.NoValue) priceLevel = PriceLevel.Silver;
-            output += shortFormat ? $"{SilverItemTag}[c/{SilverColour}:{silver}] " : $"[c/{LevelToColour(priceLevel)}:{silver} {SilverTextLocalised}] ";
+            output += shortFormat ? $"[i:SilverCoin][c/{SilverColour}:{silver}] " : $"[c/{LevelToColour(priceLevel)}:{silver} {SilverTextLocalised}] ";
         }
         if (copper > 0)
         {
             if (priceLevel == PriceLevel.NoValue) priceLevel = PriceLevel.Copper;
-            output += shortFormat ? $"{CopperItemTag}[c/{CopperColour}:{copper}] " : $"[c/{LevelToColour(priceLevel)}:{copper} {CopperTextLocalised}] ";
+            output += shortFormat ? $"[i:CopperCoin][c/{CopperColour}:{copper}] " : $"[c/{LevelToColour(priceLevel)}:{copper} {CopperTextLocalised}] ";
         }
 
         if (output == "") output = $"[c/{NoValueColour}:{NoValueTextLocalised}]";
