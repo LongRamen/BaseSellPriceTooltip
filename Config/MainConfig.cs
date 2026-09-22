@@ -5,6 +5,8 @@ namespace BaseSellPriceTooltip.Config;
 
 public class MainConfig : ModConfig
 {
+    public static MainConfig Instance { get; internal set; }
+
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
     [Header("$Mods.BaseSellPriceTooltip.Configs.MainConfig.ShowHeader")]
