@@ -108,106 +108,113 @@ public class ItemUpdateTooltips : GlobalItem
     {
         if (item.IsACoin) return;
 
-        bool prependLabel = Main.LocalPlayer.talkNPC != -1;
-        bool buy = item.isAShopItem;
+        bool inShop = Main.LocalPlayer.talkNPC != -1;
+        bool buying = item.isAShopItem;
 
-        if (prependLabel && item.value == 0) return;
+        if (inShop && item.value == 0) return;
 
-        MainConfig mainConfig = ModContent.GetInstance<MainConfig>();
-
-        int index = tooltips.FindIndex(tooltipLine => tooltipLine.Mod == "Terraria" && tooltipLine.Name == "Price");
-        do
+        // Edit vanilla tooltip line
+        int vanillaLineIndex = tooltips.FindIndex(tooltipLine => tooltipLine.Mod == "Terraria" && tooltipLine.Name == "Price");
+        if (vanillaLineIndex >= 0)
         {
-            if (index < 0) break;
-
-            string lineText_ = tooltips[index].Text;
-            if (lineText_.Contains(NoValueTextLocalised)) break;
-
-            buy = lineText_.Contains(BuyPriceTextLocalised);
-
-            if (!mainConfig.ShortFormatVanilla)
-            {
-                string colour = null;
-                if (lineText_.Contains(CopperTextLocalised)) colour = CopperColour;
-                if (lineText_.Contains(SilverTextLocalised)) colour = SilverColour;
-                if (lineText_.Contains(GoldTextLocalised)) colour = GoldColour;
-                if (lineText_.Contains(PlatinumTextLocalised)) colour = PlatinumColour;
-
-                if (colour != null) tooltips[index].Text = $"[c/{colour}:{lineText_}]";
-                break;
-            }
-
-            string label_ = buy ? BuyPriceTextLocalised : SellPriceTextLocalised;
-
-            List<(int, int)> numbers = [];
-            int start = -1;
-            int length = 0;
-
-            for (int i = 0; i < lineText_.Length; i++)
-            {
-                char c = lineText_[i];
-                if (char.IsDigit(c))
-                {
-                    if (length == 0) start = i;
-                    length++;
-                }
-                else if (length > 0)
-                {
-                    numbers.Add((start, length));
-                    length = 0;
-                }
-            }
-            numbers.Add((lineText_.Length, 0));
-
-            int platinum = 0;
-            int gold = 0;
-            int silver = 0;
-            int copper = 0;
-
-            for (int i = 0; i < numbers.Count - 1; i++)
-            {
-                (start, length) = numbers[i];
-                string numberText = lineText_.Substring(start, length);
-                int number;
-                try { number = int.Parse(numberText); } catch { break; }
-                (int next, _) = numbers[i + 1];
-                string coinText = lineText_.Substring(start + length, next - start - length);
-
-                if (coinText.Contains(PlatinumTextLocalised)) platinum = number;
-                else if (coinText.Contains(GoldTextLocalised)) gold = number;
-                else if (coinText.Contains(SilverTextLocalised)) silver = number;
-                else if (coinText.Contains(CopperTextLocalised)) copper = number;
-                else break;
-            }
-
-            long price = (platinum * 1000000L) + (gold * 10000L) + (silver * 100L) + copper;
-            if (price == 0) break;
-            string formattedPrice = FormatPrice(price, shortFormat: true, out PriceLevel priceLevel_);
-            (int first, _) = numbers[0];
-            lineText_ = string.Concat(lineText_.AsSpan(0, first), formattedPrice);
-
-            int labelIndex = lineText_.IndexOf(label_);
-            if (labelIndex == -1) break;
-            lineText_ = lineText_.Insert(labelIndex + label_.Length, "]");
-            lineText_ = lineText_.Insert(labelIndex, $"[c/{LevelToColour(priceLevel_)}:");
-
-            tooltips[index].Text = lineText_;
-            //TooltipLine line_ = new(Mod, "PriceTooltip_", lineText_);
-            //tooltips.Insert(index + 1, line_); index++;
+            string vanillaTooltipLine = tooltips[vanillaLineIndex].Text;
+            tooltips[vanillaLineIndex].Text = EditVanillaPriceTooltip(vanillaTooltipLine, buying);
         }
-        while (false);
 
-        if (prependLabel && ((buy && !ConditionSatisfied(mainConfig.ShowBaseBuyPrice)) || (!buy && !ConditionSatisfied(mainConfig.ShowInNPCShops)))) return;
-        if (!prependLabel && !ConditionSatisfied(mainConfig.ShowOutsideNPCShops)) return;
+        // Check modded tooltip show condition
+        if (inShop)
+        {
+            if (buying) { if (!ConditionSatisfied(MainConfig.Instance.ShowBaseBuyPrice)) return; }
+            else { if (!ConditionSatisfied(MainConfig.Instance.ShowInNPCShops)) return; }
+        }
+        else { if (!ConditionSatisfied(MainConfig.Instance.ShowOutsideNPCShops)) return; }
 
-        string label = Language.GetTextValue($"Mods.BaseSellPriceTooltip.Labels.Base{(buy ? "Buy" : "Sell")}Price");
+        // Format price into tooltip line
+        long price = (buying ? item.value : item.value / 5) * item.stack;
+        string newTooltipLine = FormatPrice(price, MainConfig.Instance.ShortFormat, out PriceLevel priceLevel);
 
-        string lineText = FormatPrice((buy ? item.value : item.value / 5) * item.stack, mainConfig.ShortFormat, out PriceLevel priceLevel);
-        if (prependLabel || mainConfig.AlwaysShowLabel) lineText = $"[c/{LevelToColour(priceLevel)}:{label}] {lineText}";
+        // Add label if necessary
+        bool doLabel = inShop || MainConfig.Instance.AlwaysShowLabel;
+        if (doLabel)
+        {
+            string label = Language.GetTextValue($"Mods.BaseSellPriceTooltip.Labels.Base{(buying ? "Buy" : "Sell")}Price");
+            newTooltipLine = $"[c/{LevelToColour(priceLevel)}:{label}]{newTooltipLine}";
+        }
 
-        TooltipLine line = new(Mod, "BasePriceTooltip", lineText);
-
-        if (index >= 0) tooltips.Insert(index + 1, line);
+        // Insert tooltip line
+        TooltipLine line = new(Mod, "BasePriceTooltip", newTooltipLine);
+        if (vanillaLineIndex >= 0) tooltips.Insert(vanillaLineIndex + 1, line);
         else tooltips.Add(line);
+    }
+
+    private static string EditVanillaPriceTooltip(string vanillaTooltipLine, bool buying)
+    {
+        if (vanillaTooltipLine.Contains(NoValueTextLocalised)) return vanillaTooltipLine;
+
+        string label = buying ? BuyPriceTextLocalised : SellPriceTextLocalised;
+        if (!vanillaTooltipLine.Contains(label)) return vanillaTooltipLine;
+
+        if (!MainConfig.Instance.ShortFormatVanilla)
+        {
+            return vanillaTooltipLine;
+        }
+
+        // Extract price
+        long price = ExtractPriceFromVanillaTooltip(vanillaTooltipLine);
+        if (price == 0) return vanillaTooltipLine;
+
+        // Put into short format
+        string formattedPrice = FormatPrice(price, shortFormat: true, out PriceLevel priceLevel);
+        return $"[c/{LevelToColour(priceLevel)}:{label}]{formattedPrice}";
+    }
+
+    private static long ExtractPriceFromVanillaTooltip(string tooltipLine)
+    {
+        List<(int, int)> numberPositions = [];
+        int start = -1;
+        int length = 0;
+
+        // Locate each number
+        for (int i = 0; i < tooltipLine.Length; i++)
+        {
+            char c = tooltipLine[i];
+            if (char.IsDigit(c))
+            {
+                if (length == 0) start = i;
+                length++;
+            }
+            else if (length > 0)
+            {
+                numberPositions.Add((start, length));
+                length = 0;
+            }
+        }
+        numberPositions.Add((tooltipLine.Length, 0));
+
+        int platinum = 0;
+        int gold = 0;
+        int silver = 0;
+        int copper = 0;
+
+        // Assign each number to platinum/gold/silver/copper
+        for (int i = 0; i < numberPositions.Count - 1; i++)
+        {
+            (start, length) = numberPositions[i];
+            int next = numberPositions[i + 1].Item1;
+
+            string numberText = tooltipLine.Substring(start, length);
+            int number;
+            try { number = int.Parse(numberText); } catch { break; }
+
+            string coinText = tooltipLine[(start + length)..next];
+
+            if (coinText.Contains(PlatinumTextLocalised)) platinum = number;
+            else if (coinText.Contains(GoldTextLocalised)) gold = number;
+            else if (coinText.Contains(SilverTextLocalised)) silver = number;
+            else if (coinText.Contains(CopperTextLocalised)) copper = number;
+            else break;
+        }
+
+        return (platinum * 1000000L) + (gold * 10000L) + (silver * 100L) + copper;
     }
 }
