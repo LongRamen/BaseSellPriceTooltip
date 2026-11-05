@@ -9,10 +9,11 @@ Configs: {
 	MainConfig: {
 		DisplayName: Config
 		ShowHeader: Price visibility
+		WarningColour: FFA500
 		MustSetKeybind:
 			'''
-			To use "Press to Toggle Tooltips" or "Hold to Show Tooltips", you
-			must set the Show/Hide Tooltips keybind in Controls settings.
+			[c/{$WarningColour}:To use "Press to Toggle Tooltips" or "Hold to Show Tooltips", you]
+			[c/{$WarningColour}:must set the Show/Hide Tooltips keybind in Controls settings.]
 			'''
 
 		ShowOutsideNPCShops: {
@@ -21,7 +22,7 @@ Configs: {
 				'''
 				Controls the visibility of an item's base sell price when not in an NPC shop.
 
-				{$Mods.BaseSellPriceTooltip.Configs.MainConfig.MustSetKeybind}
+				{$MustSetKeybind}
 				'''
 		}
 
@@ -31,7 +32,7 @@ Configs: {
 				'''
 				Controls the visibility of an item's base sell price when in an NPC shop.
 
-				{$Mods.BaseSellPriceTooltip.Configs.MainConfig.MustSetKeybind}
+				{$MustSetKeybind}
 				'''
 		}
 
@@ -41,7 +42,7 @@ Configs: {
 				'''
 				Controls the visibility of an item's base buy price when it's being sold by an NPC.
 
-				{$Mods.BaseSellPriceTooltip.Configs.MainConfig.MustSetKeybind}
+				{$MustSetKeybind}
 				'''
 		}
 
