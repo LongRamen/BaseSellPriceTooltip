@@ -135,10 +135,10 @@ public class ItemUpdateTooltips : GlobalItem
 
         // Add label if necessary
         bool doLabel = inShop || MainConfig.Instance.AlwaysShowLabel;
-        if (doLabel)
+        if (doLabel && priceLevel != PriceLevel.NoValue)
         {
             string label = Language.GetTextValue($"Mods.BaseSellPriceTooltip.Labels.Base{(buying ? "Buy" : "Sell")}Price");
-            newTooltipLine = $"[c/{LevelToColour(priceLevel)}:{label}]{newTooltipLine}";
+            newTooltipLine = $"[c/{LevelToColour(priceLevel)}:{label}] {newTooltipLine}";
         }
 
         // Insert tooltip line
@@ -165,7 +165,7 @@ public class ItemUpdateTooltips : GlobalItem
 
         // Put into short format
         string formattedPrice = FormatPrice(price, shortFormat: true, out PriceLevel priceLevel);
-        return $"[c/{LevelToColour(priceLevel)}:{label}]{formattedPrice}";
+        return $"[c/{LevelToColour(priceLevel)}:{label}] {formattedPrice}";
     }
 
     private static long ExtractPriceFromVanillaTooltip(string tooltipLine)
