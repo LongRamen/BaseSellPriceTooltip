@@ -3,9 +3,9 @@ using Terraria.ModLoader.Config;
 
 namespace BaseSellPriceTooltip.Config;
 
-public class MainConfig : ModConfig
+internal class MainConfig : ModConfig
 {
-    public static MainConfig Instance { get; internal set; }
+    public static MainConfig Instance;
 
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
