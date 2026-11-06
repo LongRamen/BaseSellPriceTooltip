@@ -1,0 +1,101 @@
+Labels: {
+	BaseSellPrice: Базовая стоимость продажи:
+	BaseBuyPrice: Базовая стоимость покупки:
+}
+
+Keybinds.ShowHideTooltip.DisplayName: Отображение строчки (см. конфиг!)
+
+Configs: {
+	MainConfig: {
+		DisplayName: Конфигурация
+		ShowHeader: Видимость стоимости
+		WarningColour: FFA500
+		MustSetKeybind:
+			'''
+			[c/{$WarningColour}:Для использования режимов «по переключателю» и «по нажатию»]
+			[c/{$WarningColour}:вам необходимо установить клавишу «Отображение строки» в настройках управления.]
+			'''
+
+		ShowOutsideNPCShops: {
+			Label: Вне магазинов НИПов
+			Tooltip:
+				'''
+				Определяет, при каких условиях будет отображаться строчка с базовой стоимостью предмета,
+				когда вы не находитесь в меню магазина.
+
+				{$MustSetKeybind}
+				'''
+		}
+
+		ShowInNPCShops: {
+			Label: В магазинах НИПов
+			Tooltip:
+				'''
+				Определяет, при каких условиях будет отображаться строчка с базовой стоимостью предмета,
+				когда вы находитесь в меню магазина.
+
+				{$MustSetKeybind}
+				'''
+		}
+
+		ShowBaseBuyPrice: {
+			Label: Стоимость покупки
+			Tooltip:
+				'''
+				Определяет, при каких условиях будет отображаться строка с базовой стоимостью покупки предмета у НИПов.
+
+				{$MustSetKeybind}
+				'''
+		}
+
+		FormatHeader: Формат отображения стоимости
+
+		AlwaysShowLabel: {
+			Label: Всегда показывать приписку
+			Tooltip: Приписка «{$Mods.BaseSellPriceTooltip.Labels.BaseSellPrice}» будет отображаться даже вне магазинов.
+		}
+
+		ShortFormat: {
+			Label: Использовать короткий формат
+			Tooltip:
+				'''
+				Стоимость покупки и продажи будет отображаться более компактно:
+
+				Ванильный формат: [c/DCDCC6:12 платин. 34 зол. 56 сереб. 78 медн.]
+				Короткий формат: [i:PlatinumCoin][c/DCDCC6:12] [i:GoldCoin][c/E0C95C:34] [i:SilverCoin][c/B5C0C1:56] [i:CopperCoin][c/F68A60:78]
+
+				Ванильный формат: [c/E0C95C:9 зол. 87 медн.]
+				Короткий формат: [i:GoldCoin][c/E0C95C:9] [i:CopperCoin][c/F68A60:87]
+				'''
+		}
+
+		ShortFormatVanilla: {
+			Label: Использовать короткий формат для ванильных строк
+			Tooltip: Ванильные строки стоимости покупки и продажи будут использовать короткий формат из мода.
+		}
+	}
+
+	ShowCondition: {
+		AlwaysShow: {
+			Label: Всегда
+			Tooltip: ""
+		}
+
+		PressToToggle: {
+			Label: По переключателю
+			Tooltip: ""
+		}
+
+		HoldToShow: {
+			Label: По нажатию
+			Tooltip: ""
+		}
+
+		NeverShow: {
+			Label: Никогда
+			Tooltip: ""
+		}
+
+		Tooltip: ""
+	}
+}
